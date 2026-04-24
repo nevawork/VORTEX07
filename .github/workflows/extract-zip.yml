@@ -1,0 +1,27 @@
+name: Extract VORTEX.zip
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'VORTEX.zip'
+
+jobs:
+  extract-zip:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Extract VORTEX.zip
+        run: |
+          unzip -q VORTEX.zip
+          rm VORTEX.zip
+      
+      - name: Commit extracted files
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'Extract VORTEX.zip contents'
